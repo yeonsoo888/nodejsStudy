@@ -6,5 +6,9 @@ app.listen(8080, function() {
 });
 
 app.get('/pet',(req,res) => {
-    res.send("펫용품 쇼핑할 수 있는 사이트 입니다.");
+    res.send("<h4>펫용품 쇼핑할 수 있는 사이트 입니다.</h4>");
+})
+
+app.get('/beauty',(req,res) => {
+    res.send("<h4>뷰티용품을 쇼핑할 수 있는 사이트 입니다.</h4>");
 })
