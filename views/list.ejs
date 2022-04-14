@@ -37,29 +37,35 @@
         </nav>
     </header>
     <section>
+        <ul class="list-group">
         <% posts.map( (item,idx)=> { %>
-            <ul class="list-group">
-                <li class="list-group-item">
+                <li class="list-group-item" >
+                    <P>
+                        글번호 : <%= item._id %>
+                    </P>
                     <h4>
                         <%= item.할일 %>
                     </h4>
                     <p>
                         <%= item.날짜 %>
                     </p>
-                    <button type="button" class="btn--delete">삭제</button>
+                    <button type="button" data-id="<%= item._id %>"  class="delete">삭제</button>
                 </li>
+                <% }) %>
             </ul>
-        <% }) %>
     </section>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+$('.delete').click(function(e){
+    var btnIdx = e.target.dataset.id;
     $.ajax({
-        metohd : "DELETE",
+        method : 'DELETE',
         url : '/delete',
-        data: {_id: 1}
-    }).done((result) => {
-
+        data : { _id : btnIdx }
+    }).done(function(결과){
+      //AJAX 성공시 실행할 코드는 여기
     })
+});
 </script>
 </html>

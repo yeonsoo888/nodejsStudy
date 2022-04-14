@@ -66,8 +66,13 @@ app.delete('/delete',(req,res) => {
     // req.body에 담겨서 정보가 넘어옴
     console.log(req.body);
     req.body._id = parseInt(req.body._id);
+
     db.collection("post").deleteOne(req.body,(err,result) => {
         console.log("삭제완료");
+
+        db.collection('counter').updateOne({name: "게시물갯수"},{$inc :{ totalPost:-1}}, (err,res) => {
+            if(err) return console.log(err);
+        });
     })
     
 })
