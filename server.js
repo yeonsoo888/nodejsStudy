@@ -69,7 +69,7 @@ app.delete('/delete',(req,res) => {
 
     db.collection("post").deleteOne(req.body,(err,result) => {
         console.log("삭제완료");
-
+        res.status(200).send({message : '성공했습니다'});
         db.collection('counter').updateOne({name: "게시물갯수"},{$inc :{ totalPost:-1}}, (err,res) => {
             if(err) return console.log(err);
         });

@@ -64,7 +64,10 @@ $('.delete').click(function(e){
         url : '/delete',
         data : { _id : btnIdx }
     }).done(function(결과){
-      //AJAX 성공시 실행할 코드는 여기
+        console.log("성공했어염")
+        console.log($(this).parent());
+    }).fail(function() {
+
     })
 });
 </script>
