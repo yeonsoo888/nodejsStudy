@@ -36,7 +36,10 @@
         </nav>
     </header>
     <section>
-        list
+        <% posts.map( (item,idx) => { %>
+            <h4><%= item.할일 %></h4>
+            <p><%= item.날짜 %></p>
+        <% }) %>
     </section>
 </body>
 
