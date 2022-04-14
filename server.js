@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({extended: true}));
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine', 'ejs');
 
 let db;
 MongoClient.connect('mongodb+srv://admin:qwer1234@cluster0.rtid5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',(에러,client)=>{
@@ -38,16 +39,24 @@ app.post('/add', function(req, res){
         const totalLength = result.totalPost;
         
         ///db에 보내주세요
-        db.collection('post').insertOne({_id:totalLength , 할일 : req.body.title, 날짜 : req.body.date},(에러,결과) => {
+        db.collection('post').insertOne({_id:totalLength + 1 , 할일 : req.body.title, 날짜 : req.body.date},(에러,결과) => {
             console.log("저장완료");
 
             ///db에서 db 수정해주세요
             // $set == 바꿔주세요
             // $inc == 기존값에 더해주세요 (음수가능)
             db.collection('counter').updateOne({name: "게시물갯수"},{$inc :{ totalPost:1}}, (err,res) => {
-                console.log(err);
+                if(err) return console.log(err);
             });
         });
     });
-
 });
+
+app.get('/list',(req,res) => {
+    db.collection("post").find().toArray((err,result) => {
+        if(err) {return console.log(err)}
+        console.log(result);
+    });
+
+    res.render('list.ejs');
+})
