@@ -1,4 +1,5 @@
 <!doctype html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,11 +37,29 @@
         </nav>
     </header>
     <section>
-        <% posts.map( (item,idx) => { %>
-            <h4><%= item.할일 %></h4>
-            <p><%= item.날짜 %></p>
+        <% posts.map( (item,idx)=> { %>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4>
+                        <%= item.할일 %>
+                    </h4>
+                    <p>
+                        <%= item.날짜 %>
+                    </p>
+                    <button type="button" class="btn--delete">삭제</button>
+                </li>
+            </ul>
         <% }) %>
     </section>
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $.ajax({
+        metohd : "DELETE",
+        url : '/delete',
+        data: {_id: 1}
+    }).done((result) => {
 
+    })
+</script>
 </html>

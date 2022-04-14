@@ -24,6 +24,7 @@ MongoClient.connect('mongodb+srv://admin:qwer1234@cluster0.rtid5.mongodb.net/myF
 
 app.get('/',(req,res) => {
     res.sendFile(__dirname + "/index.html");
+    console.log("야야");
 })
 
 app.get('/write',(req,res) => {
@@ -59,4 +60,14 @@ app.get('/list',(req,res) => {
         res.render('list.ejs',{posts: result});
     });
 
+})
+
+app.delete('/delete',(req,res) => {
+    // req.body에 담겨서 정보가 넘어옴
+    console.log(req.body);
+    req.body._id = parseInt(req.body._id);
+    db.collection("post").deleteOne(req.body,(err,result) => {
+        console.log("삭제완료");
+    })
+    
 })
