@@ -33,11 +33,20 @@ app.get('/write',(req,res) => {
 app.post('/add', function(req, res){
     res.send('전송완료');
 
+    ///db에서 찾아주세요
     db.collection('counter').findOne({name: "게시물갯수"}, (err, result) => {
         const totalLength = result.totalPost;
-
+        
+        ///db에 보내주세요
         db.collection('post').insertOne({_id:totalLength , 할일 : req.body.title, 날짜 : req.body.date},(에러,결과) => {
             console.log("저장완료");
+
+            ///db에서 db 수정해주세요
+            // $set == 바꿔주세요
+            // $inc == 기존값에 더해주세요 (음수가능)
+            db.collection('counter').updateOne({name: "게시물갯수"},{$inc :{ totalPost:1}}, (err,res) => {
+                console.log(err);
+            });
         });
     });
 
